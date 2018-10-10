@@ -44,11 +44,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      inject: true,
       // Path to HTML file
       template: './public/index.html',
-      // Output filename (in dist)
-      filename: 'index.html',
       // Minification options
       minify: {
         removeComments: true,

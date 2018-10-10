@@ -40,7 +40,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          options: {          
+          options: {
             // This is a feature of `babel-loader` for webpack (not Babel itself).
             // It enables caching results in ./node_modules/.cache/babel-loader/
             // directory for faster rebuilds.
@@ -53,11 +53,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      inject: true,
       // Path to HTML file
       template: './public/index.html',
-      // Output filename (in dist)
-      filename: 'index.html',
       // Variables listed here in the configurations for HtmlWebpackPlugin become ejs
       // variables for interpolation in the HTML file, accessible with
       // <%- htmlWebpackPlugin.options.[varName] %>. We put our env variables in for HTML access
