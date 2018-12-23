@@ -3,4 +3,5 @@
 .env.production
 node_modules
 build
+dump.rdb
 npm-debug.log

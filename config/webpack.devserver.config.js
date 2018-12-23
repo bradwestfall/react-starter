@@ -12,7 +12,7 @@ module.exports = {
   // Enable gzip compression of generated files.
   compress: true,
   // Port to view dev env (localhost:3010)
-  port: 3010,
+  port: 8000,
   // Silence WebpackDevServer's own logs since they're generally not useful.
   // It will still show compile warnings and errors with this setting.
   clientLogLevel: 'none',
