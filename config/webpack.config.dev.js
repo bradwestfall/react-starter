@@ -21,9 +21,7 @@ module.exports = {
     // served by WebpackDevServer in development. This is the JS bundle
     // containing code from all our entry points, and the Webpack runtime.
     filename: '[name].bundle.js',
-
     chunkFilename: '[name].bundle.js',
-
     // Where to create the build
     path: path.resolve(process.cwd(), 'build'),
     publicPath: '/'
