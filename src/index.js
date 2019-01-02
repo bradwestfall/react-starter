@@ -9,11 +9,11 @@ import AuthorizedLayout from 'layouts/AuthorizedLayout'
 
 const App = () => (
   <Router>
-      <Switch>
-        <Route path="/login" component={UnauthorizedLayout} />
-        <Route path="/dashboard" component={AuthorizedLayout} />
-        <Redirect to="/login" />
-      </Switch>
+    <Switch>
+      <Route path="/login" component={UnauthorizedLayout} />
+      <Route path="/dashboard" component={AuthorizedLayout} />
+      <Redirect to="/login" />
+    </Switch>
   </Router>
 )
 
