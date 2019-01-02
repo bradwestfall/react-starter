@@ -7,6 +7,7 @@ const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
 
 module.exports = {
   // Don't attempt to continue if there are any errors.
@@ -48,8 +49,8 @@ module.exports = {
       template: './public/index.html',
       // Minification options
       minify: {
-        removeComments: true,
-        collapseWhitespace: true,
+        removeComments: false,
+        collapseWhitespace: false,
         removeRedundantAttributes: true,
         useShortDoctype: true,
         removeEmptyAttributes: true,
@@ -59,6 +60,7 @@ module.exports = {
         minifyCSS: true,
         minifyURLs: true,
       },
+      hash: true,
       // Variables listed here in the configurations for HtmlWebpackPlugin become ejs
       // variables for interpolation in the HTML file, accessible with
       // <%- htmlWebpackPlugin.options.[varName] %>. We put our env variables in for HTML access
@@ -73,7 +75,14 @@ module.exports = {
     ]),
     // Make global variables available to the application. We use this to
     // set process.env vars in the front-end
-    new webpack.DefinePlugin(env.stringified)
+    new webpack.DefinePlugin(env.stringified),
+    // GZip
+    new CompressionPlugin({
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8
+    })
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
