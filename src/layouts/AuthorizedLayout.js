@@ -7,18 +7,13 @@ const SettingsPage = React.lazy(() => import('../pages/SettingsPage'))
 
 const Loading = () => <div>Loading...</div>
 
-export const loadTags = async () => {
-  return true
-}
-
 const AuthorizedLayout = ({ match }) => {
   return (
     <div className="app">
       <header>
         Header
         <nav>
-          <Link to={match.url}>Dashboard</Link> :{' '}
-          <Link to={`${match.url}/products`}>Products</Link> :{' '}
+          <Link to={match.url}>Dashboard</Link> : <Link to={`${match.url}/products`}>Products</Link> :{' '}
           <Link to={`${match.url}/settings`}>Settings</Link>
         </nav>
       </header>
