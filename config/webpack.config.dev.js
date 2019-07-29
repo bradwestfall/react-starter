@@ -12,10 +12,7 @@ module.exports = {
   devServer: webpackDevServerConfig,
   // Enhanced dev support (like correct line numbers on errors)
   devtool: 'source-map',
-  entry: [
-    path.resolve(process.cwd(), 'config/setup.js'),
-    path.resolve(process.cwd(), 'src/index.js')
-  ],
+  entry: [path.resolve(process.cwd(), 'config/setup.js'), path.resolve(process.cwd(), 'src/index.js')],
   output: {
     // This does not produce a real file. It's just the virtual path that is
     // served by WebpackDevServer in development. This is the JS bundle
@@ -24,7 +21,7 @@ module.exports = {
     chunkFilename: '[name].bundle.js',
     // Where to create the build
     path: path.resolve(process.cwd(), 'build'),
-    publicPath: '/'
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -34,7 +31,7 @@ module.exports = {
         test: /\.js$/,
         enforce: 'pre',
         exclude: /node_modules/,
-        loader: 'eslint-loader'
+        loader: 'eslint-loader',
       },
       // Process JS with Babel
       {
@@ -45,12 +42,36 @@ module.exports = {
             // This is a feature of `babel-loader` for webpack (not Babel itself).
             // It enables caching results in ./node_modules/.cache/babel-loader/
             // directory for faster rebuilds.
-            cacheDirectory: true
+            cacheDirectory: true,
           },
-          loader: 'babel-loader'
-        }
-      }
-    ]
+          loader: 'babel-loader',
+        },
+      },
+      // Process CSS and SCSS
+      {
+        test: /\.(s*)css$/,
+        exclude: /node_modules/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              modules: {
+                // Make a longer but more understandable classname based on path and file
+                localIdentName: '[path][name]_[local]_[hash:base64:5]',
+              },
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -59,11 +80,11 @@ module.exports = {
       // Variables listed here in the configurations for HtmlWebpackPlugin become ejs
       // variables for interpolation in the HTML file, accessible with
       // <%- htmlWebpackPlugin.options.[varName] %>. We put our env variables in for HTML access
-      env: env.raw
+      env: env.raw,
     }),
     // Make global variables available to the application. We use this to
     // set process.env vars in the front-end
-    new webpack.DefinePlugin(env.stringified)
+    new webpack.DefinePlugin(env.stringified),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

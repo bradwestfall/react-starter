@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Router from 'utils/Router'
+import './global-styles.scss'
 
 // Layouts
 import UnauthorizedLayout from 'layouts/UnauthorizedLayout'

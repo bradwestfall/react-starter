@@ -8,19 +8,17 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   // Don't attempt to continue if there are any errors.
   bail: true,
-  entry: [
-    path.resolve(process.cwd(), 'config/setup.js'),
-    path.resolve(process.cwd(), 'src/index.js')
-  ],
+  entry: [path.resolve(process.cwd(), 'config/setup.js'), path.resolve(process.cwd(), 'src/index.js')],
   output: {
     filename: 'static/js/bundle.js',
     // Where to create the build
     path: path.resolve(process.cwd(), 'build'),
-    publicPath: '/'
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -30,7 +28,7 @@ module.exports = {
         test: /\.js$/,
         enforce: 'pre',
         exclude: /node_modules/,
-        loader: 'eslint-loader'
+        loader: 'eslint-loader',
       },
       // Process JS with Babel
       {
@@ -38,10 +36,28 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           options: { compact: true },
-          loader: "babel-loader"
-        }
-      }
-    ]
+          loader: 'babel-loader',
+        },
+      },
+      // Process CSS and SCSS
+      {
+        test: /\.(s*)css$/,
+        exclude: /node_modules/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                // Make a longer but more understandable classname based on path and file
+                localIdentName: '[path][name]_[local]_[hash:base64:5]',
+              },
+            },
+          },
+          'sass-loader',
+        ],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -64,25 +80,31 @@ module.exports = {
       // Variables listed here in the configurations for HtmlWebpackPlugin become ejs
       // variables for interpolation in the HTML file, accessible with
       // <%- htmlWebpackPlugin.options.[varName] %>. We put our env variables in for HTML access
-      env: env.raw
+      env: env.raw,
     }),
     // Copy static assets from public/static to build/static
     new CopyWebpackPlugin([
       {
         from: path.resolve(process.cwd(), 'public/static'),
-        to: 'static'
-      }
+        to: 'static',
+      },
     ]),
     // Make global variables available to the application. We use this to
     // set process.env vars in the front-end
     new webpack.DefinePlugin(env.stringified),
     // GZip
     new CompressionPlugin({
-      algorithm: "gzip",
+      algorithm: 'gzip',
       test: /\.js$|\.css$|\.html$/,
       threshold: 10240,
-      minRatio: 0.8
-    })
+      minRatio: 0.8,
+    }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
@@ -93,6 +115,6 @@ module.exports = {
   },
   // Don't show performance hints at build time. They just tell us to use code splitting
   performance: {
-    hints: false
-  }
+    hints: false,
+  },
 }
