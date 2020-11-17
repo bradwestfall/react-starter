@@ -32,18 +32,19 @@ module.exports = {
       },
       // Process CSS and SCSS
       {
-        test: /\.(s*)css$/,
-        exclude: /node_modules/,
+        test: /\.(css|scss)$/,
         use: [
           'style-loader',
           {
             loader: 'css-loader',
             options: {
               sourceMap: true,
-              modules: {
-                // Make a longer but more understandable classname based on path and file
-                localIdentName: '[path][name]_[local]_[hash:base64:5]',
-              },
+              // modules: {
+              //   // Make a longer but more understandable classname based on path and file
+              //   localIdentName: '[path][name]_[local]_[hash:base64:5]',
+              // },
+              // Use one setting or the other for modules
+              modules: false,
             },
           },
           {

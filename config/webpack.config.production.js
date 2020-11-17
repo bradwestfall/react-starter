@@ -29,17 +29,18 @@ module.exports = {
       },
       // Process CSS and SCSS
       {
-        test: /\.(s*)css$/,
-        exclude: /node_modules/,
+        test: /\.(css|scss)$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
-              modules: {
-                // Make a longer but more understandable classname based on path and file
-                localIdentName: '[path][name]_[local]_[hash:base64:5]',
-              },
+              // modules: {
+              //   // Make a longer but more understandable classname based on path and file
+              //   localIdentName: '[path][name]_[local]_[hash:base64:5]',
+              // },
+              // Use one setting or the other for modules
+              modules: false,
             },
           },
           'sass-loader',
