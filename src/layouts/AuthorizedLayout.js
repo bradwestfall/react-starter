@@ -1,7 +1,9 @@
 import React, { Suspense } from 'react'
 import { Switch, Route, Link } from 'react-router-dom'
 
-import DashboardPage from 'pages/DashboardPage'
+import DashboardPage from '../pages/DashboardPage'
+
+// Example code splitting by route
 const ProductsPage = React.lazy(() => import('../pages/ProductsPage'))
 const SettingsPage = React.lazy(() => import('../pages/SettingsPage'))
 
@@ -13,8 +15,8 @@ const AuthorizedLayout = ({ match }) => {
       <header>
         Header
         <nav>
-          <Link to={match.url}>Dashboard</Link> : <Link to={`${match.url}/products`}>Products</Link> :{' '}
-          <Link to={`${match.url}/settings`}>Settings</Link>
+          <Link to={match.url}>Dashboard</Link> : <Link to={`${match.url}/products`}>Products</Link>{' '}
+          : <Link to={`${match.url}/settings`}>Settings</Link>
         </nav>
       </header>
       <main>
