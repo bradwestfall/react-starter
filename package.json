@@ -10,6 +10,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/eslint-parser": "^7.12.1",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.1",
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.5",
@@ -20,13 +21,15 @@
     "css-loader": "^3.6.0",
     "dotenv": "^5.0.1",
     "eslint": "^7.13.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "fs-extra": "^5.0.0",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.2",
     "node-sass": "^4.14.1",
-    "promise": "^8.1.0",
+    "prettier": "^2.1.2",
     "sass-loader": "^7.3.1",
     "style-loader": "^0.23.1",
     "webpack": "^4.44.2",
@@ -56,23 +59,29 @@
     "tabWidth": 2
   },
   "eslintConfig": {
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "extends": [
-      "eslint:recommended",
-      "plugin:react/recommended"
-    ],
-    "plugins": [
-      "react-hooks"
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended"
     ],
     "env": {
       "browser": true,
       "node": true,
       "es6": true
     },
+    "ignorePatterns": [
+      "/node_modules/**",
+      "/build/**"
+    ],
     "rules": {
       "react/prop-types": "off",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn"
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
     }
   }
 }

@@ -5,11 +5,19 @@ import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 // https://github.com/ReactTraining/react-router/pull/4357
 const Router = ({ children }) => (
   <BrowserRouter>
-    <Route render={({ history: { location: { pathname, search, hash } } }) => (
-      pathname !== '/' && pathname.slice(-1) === '/'
-        ? <Redirect to={`${pathname.slice(0, -1)}${search}${hash}`} />
-        : children
-    )} />
+    <Route
+      render={({
+        history: {
+          location: { pathname, search, hash },
+        },
+      }) =>
+        pathname !== '/' && pathname.slice(-1) === '/' ? (
+          <Redirect to={`${pathname.slice(0, -1)}${search}${hash}`} />
+        ) : (
+          children
+        )
+      }
+    />
   </BrowserRouter>
 )
 

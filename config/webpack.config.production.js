@@ -13,7 +13,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
   // Don't attempt to continue if there are any errors.
   bail: true,
-  entry: [path.resolve(process.cwd(), 'config/setup.js'), path.resolve(process.cwd(), 'src/index.js')],
+  entry: path.resolve(process.cwd(), 'src/index.js'),
   output: {
     filename: 'static/js/bundle.js',
     // Where to create the build
@@ -22,22 +22,10 @@ module.exports = {
   },
   module: {
     rules: [
-      // First, run the linter.
-      // It's important to do this before Babel processes the JS.
       {
-        test: /\.js$/,
-        enforce: 'pre',
+        test: /\.(js)$/,
         exclude: /node_modules/,
-        loader: 'eslint-loader',
-      },
-      // Process JS with Babel
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          options: { compact: true },
-          loader: 'babel-loader',
-        },
+        use: ['babel-loader', 'eslint-loader'],
       },
       // Process CSS and SCSS
       {

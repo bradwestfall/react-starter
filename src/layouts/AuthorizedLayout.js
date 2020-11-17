@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { Switch, Route, Link } from 'react-router-dom'
+import { Switch, Route, Link, useRouteMatch } from 'react-router-dom'
 
 import DashboardPage from '../pages/DashboardPage'
 
@@ -9,7 +9,9 @@ const SettingsPage = React.lazy(() => import('../pages/SettingsPage'))
 
 const Loading = () => <div>Loading...</div>
 
-const AuthorizedLayout = ({ match }) => {
+export default function AuthorizedLayout() {
+  const match = useRouteMatch()
+
   return (
     <div className="app">
       <header>
@@ -32,5 +34,3 @@ const AuthorizedLayout = ({ match }) => {
     </div>
   )
 }
-
-export default AuthorizedLayout

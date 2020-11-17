@@ -12,7 +12,7 @@ module.exports = {
   devServer: webpackDevServerConfig,
   // Enhanced dev support (like correct line numbers on errors)
   devtool: 'source-map',
-  entry: [path.resolve(process.cwd(), 'config/setup.js'), path.resolve(process.cwd(), 'src/index.js')],
+  entry: path.resolve(process.cwd(), 'src/index.js'),
   output: {
     // This does not produce a real file. It's just the virtual path that is
     // served by WebpackDevServer in development. This is the JS bundle
@@ -25,27 +25,10 @@ module.exports = {
   },
   module: {
     rules: [
-      // First, run the linter.
-      // It's important to do this before Babel processes the JS.
       {
-        test: /\.js$/,
-        enforce: 'pre',
+        test: /\.(js)$/,
         exclude: /node_modules/,
-        loader: 'eslint-loader',
-      },
-      // Process JS with Babel
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          options: {
-            // This is a feature of `babel-loader` for webpack (not Babel itself).
-            // It enables caching results in ./node_modules/.cache/babel-loader/
-            // directory for faster rebuilds.
-            cacheDirectory: true,
-          },
-          loader: 'babel-loader',
-        },
+        use: ['babel-loader', 'eslint-loader'],
       },
       // Process CSS and SCSS
       {
