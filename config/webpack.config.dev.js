@@ -9,6 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpackDevServerConfig = require('./webpack.devserver.config.js')
 
 module.exports = {
+  mode: 'development',
   devServer: webpackDevServerConfig,
   // Enhanced dev support (like correct line numbers on errors)
   devtool: 'source-map',
@@ -28,7 +29,15 @@ module.exports = {
       {
         test: /\.(js)$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader'],
+        use: [
+          {
+            options: {
+              cacheDirectory: true,
+            },
+            loader: 'babel-loader',
+          },
+          'eslint-loader',
+        ],
       },
       // Process CSS and SCSS
       {

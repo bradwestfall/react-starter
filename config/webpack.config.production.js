@@ -13,6 +13,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
   // Don't attempt to continue if there are any errors.
   bail: true,
+  mode: 'production',
   entry: path.resolve(process.cwd(), 'src/index.js'),
   output: {
     filename: 'static/js/bundle.js',
