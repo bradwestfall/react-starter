@@ -47,7 +47,6 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true,
               // modules: {
               //   // Make a longer but more understandable classname based on path and file
               //   localIdentName: '[path][name]_[local]_[hash:base64:5]',
